@@ -3,86 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="jquery-2.2.0.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	$('#add').on('click', function() {
-		var brand = $('#brand').val();
-		var model = $('#model').val();
-		var year = $('#year').val();
-		var km = $('#km').val();
-		var newTr = ""
-		var errors = [];
-		newTr += "<tr><td>" + brand + "</td><td>" + model + "</td><td>" + year + "</td><td>" + km + "</td></tr>";
-			if(!brand) {
-				errors.push("Brand is required!");
-				alert(errors);
-			} else if (!model) {
-				errors.push("Model is required!");
-				alert(errors);
-			} else if (!(year.match(/^\d+$/))) {
-				errors.push("Year is required and should only containd digits");
-				alert(errors);
-			} else if ((!km) || (!(km.match(/^\d+$/)))) {
-				errors.push("Km are required and should only containd digits");
-				alert(errors);
-			} else {
-				$(newTr).appendTo('#table tbody');
-			}
-	});
-	
-	$('#deleteLast').on('click', function() {
-		$('#table tbody tr:last').remove();
-	});
-	
-	$('#resetTable').on('click', function() {
-		$('#table tbody tr').remove();
-	});
-	
-});
-</script>
+<link rel="stylesheet" href="css/reset.css" />
+<link rel="stylesheet" href="css/styles.css" />
+<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="js/Car.js"></script>
+<script type="text/javascript" src="js/validateForm.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 </head>
-<style>
-	#border, tr, th, td{
-	border: 1px solid #CCC;
-	}
-	th, td, input[type=text]{
-	width: 150px;
-	}
-	input[type=text]{
-	float: left;
-	margin-left: 2px;
-	}
-	input[type=button]{
-	width: 100px;
-	margin-left: 40px;
-	}
-	form{
-	margin-top: 50px;
-	}
-</style>
 <body>
-<table id="table">
-	<thead>
-		<tr>
-			<th>Brand</th> 
-	        <th>Model</th> 
-	        <th>Year</th>
-	        <th>Km</th> 
-	     </tr>
-     </thead>
-     <tbody>
-     
-     </tbody>
-  </table>
-  <form action="">
-  <div><input type="text" id="brand" placeholder="Brand"></div>
-  <div><input type="text" id="model" placeholder="Model"></div>
-  <div><input type="text" id="year" placeholder="Year"></div>
-  <div><input type="text" id="km" placeholder="Km"></div>
-  <input type="button" value="Add" id="add"/>
-  <input type="button" value ="Delete last" id="deleteLast"/>
-  <input type="button" value ="Reset Table" id="resetTable" />
-  </form>
+	<div class="container">
+		<div class="header">
+			<h1>Your cars</h1>
+		</div>
+		<table id="table">
+			<thead>
+				<tr>
+					<th>#</th> 
+					<th>Brand</th> 
+			        <th>Model</th> 
+			        <th>Year</th>
+			        <th>Kilometers</th> 
+			        <th>Action</th>
+			     </tr>
+		     </thead>
+		     <tbody>
+		     	<tr>
+					<td>1</td> 
+					<td>Hyundai</td> 
+			        <td>Coupe</td> 
+			        <td>2004</td>
+			        <td>200000</td> 
+			        <td><button class="editButton">Edit</button><button class="deleteButton">Delete</button></td>
+			     </tr>
+			     <tr>
+					<td>2</td> 
+					<td>Nissan</td> 
+			        <td>GTR</td> 
+			        <td>2015</td>
+			        <td>10</td> 
+			        <td><button class="editButton">Edit</button><button class="deleteButton">Delete</button></td>
+			     </tr>
+		     	 <tr>
+					<td>3</td> 
+					<td>Dodge</td> 
+			        <td>Challenger</td> 
+			        <td>1970</td>
+			        <td>100000</td> 
+			        <td><button>Edit</button><button>Delete</button></td>
+			     </tr>
+		     </tbody>
+		  </table>
+		  <form action="">
+		  <div class="input">
+		  		<input type="text" id="brand" placeholder="Brand">
+		  </div>
+		  <div class="input">
+		  		<input type="text" id="model" placeholder="Model">
+		  </div>
+		  <div class="input">
+		  		<input type="text" id="year" placeholder="Year">
+		  </div>
+		  <div class="input">
+		  		<input type="text" id="kilometers" placeholder="Kilometers">
+		  </div>
+		  <input type="button" value="Add" id="add"/>
+		  </form>
+	</div>
 </body>
 </html>
