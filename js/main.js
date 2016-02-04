@@ -2,7 +2,7 @@ $(document).ready(function(){
 	
 	var dataArray = [];
 	
-	
+
 	$('#add').on('click', function() {	
 		
 		var carNumber = ($('tr').length);
@@ -25,7 +25,7 @@ $(document).ready(function(){
 			
 		var newTr = ""
 
-			
+		//CALL ALL VALIDATING FUNCTIONS & CHECK INPUTS	
 		notEmptyInput(brand);
 		notEmptyInput(model);
 		notEmptyInput(year);
@@ -33,6 +33,8 @@ $(document).ready(function(){
 		onlyNumbers(year);
 		onlyNumbers(kilometers);
 		
+		
+		//ADD ROWS TO TABLE & ADD DATA TO "DATABASE".
 		if (errors.length == 0) {
 			
 			var car = new Car(brand, model,parseFloat(year),parseFloat(kilometers))
@@ -62,8 +64,42 @@ $(document).ready(function(){
 		
 	});
 	
+	
+	//SET DELETE BUTTON
 	$('.deleteButton').on('click', function() {	
 		confirm('Are you sure you want to delete this car?');
+		if(confirm) {
+			$(this).closest('tr').remove();
+		}
 	});
+	
+	$('.editButton').on('click', function() {	
+
+	});
+	
+	
+	
+	//SET EDIT BUTTON
+	$('.editButton').on('click', function(e) {	
+	
+			var elements = e.target.parentElement.parentElement.children;
+			
+			$('form #brand').val(elements[1].innerText);
+			
+			$('form #model').val(elements[2].innerText);
+			
+			$('form #year').val(elements[3].innerText);
+			
+			$('form #kilometers').val(elements[4].innerText);
+			
+			$('#add').on('click', function() {	
+				elements[1].innerText = $('form #brand').val();
+				elements[2].innerText = $('form #model').val();
+				elements[3].innerText = $('form #year').val();
+				elements[4].innerText = $('form #kilometers').val();
+				e.target.parentElement.parentElement.remove();
+			});
+	});
+	
 	
 });
