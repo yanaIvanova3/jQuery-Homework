@@ -9,7 +9,6 @@ function notEmptyInput(param) {
 	if (!paramValue){
 		errors.push($(param).attr('id') + ' field is required!');
 		param.css('border', '1px solid red');
-		$('input[type=text]').val('');
 		return false;
 	} else {
 		return true;
@@ -21,7 +20,6 @@ function onlyNumbers(param) {
 	if (!(paramValue.match(/^\d+$/))) {
 		errors.push($(param).attr('id') + ' should only contain numbers!');
 		param.css('border', '1px solid red');
-		$('input[type=text]').val('');
 		return false;
 	} else {
 		return true;

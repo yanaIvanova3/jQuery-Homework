@@ -3,8 +3,7 @@ $(document).ready(function() {
 	var dataArray = [];
 	
 
-	$('#add').on('click', function(e) {	
-		e.preventDefault();
+	$('#add').on('click', function() {	
 		
 		var carNumber = (dataArray.length) + 1;
 	
