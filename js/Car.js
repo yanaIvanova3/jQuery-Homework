@@ -10,6 +10,8 @@ function Car (brand, model, year, kilometers)
     this.year = year;
     
     this.kilometers = kilometers;
+    
+    this.name = 'default';
 
 }
 

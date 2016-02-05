@@ -1,19 +1,20 @@
-$(document).ready(function(){
+$(document).ready(function() {
 	
 	var dataArray = [];
 	
 
-	$('#add').on('click', function() {	
+	$('#add').on('click', function(e) {	
+		e.preventDefault();
 		
-		var carNumber = ($('tr').length);
+		var carNumber = (dataArray.length) + 1;
 	
-		var brand = $('#brand').val();
+		var brand = $('#brand');
 		
-		var model = $('#model').val();
+		var model = $('#model');
 		
-		var year = $('#year').val();
+		var year = $('#year');
 		
-		var kilometers = $('#kilometers').val();
+		var kilometers = $('#kilometers');
 		
 		var deleteButton = $('<button>');
 			deleteButton.addClass('deleteButton');
@@ -23,7 +24,7 @@ $(document).ready(function(){
 			editButton.addClass('editButton');
 			editButton.text('Edit')
 			
-		var newTr = ""
+		var newTr = "";
 
 		//CALL ALL VALIDATING FUNCTIONS & CHECK INPUTS	
 		notEmptyInput(brand);
@@ -34,71 +35,70 @@ $(document).ready(function(){
 		onlyNumbers(kilometers);
 		
 		
-		//ADD ROWS TO TABLE & ADD DATA TO "DATABASE".
+		
+		//ADD ROWS TO TABLE & ADD DATA TO "DATABASE" IF THERE ARE NO ERRORS
 		if (errors.length == 0) {
 			
-			var car = new Car(brand, model,parseFloat(year),parseFloat(kilometers))
+			//CREATE CAR OBJECT
+			var car = new Car(brand, model,parseFloat(year),parseFloat(kilometers));
+			
+			//PUSH CAR OBJECT TO DATA ARRAY
 			dataArray.push(car);
-			 newTr = $('<tr></tr>');
-		        newTr
-		            .append($('<td>' + carNumber + '</td>'))
-		            .append($('<td>' + brand + '</td>'))
-		            .append($('<td>' + model + '</td>'))
-		            .append($('<td>' + year + '</td>'))
-		            .append($('<td>' + kilometers + '</td>'))
-		            .append($('<td>')
-		            .append(editButton)
-		            .append(deleteButton)
-		            .append($('</td>')));
-		            
-
-		        $(newTr).appendTo('#table tbody');
+			
+			//UPDATE TABLE
+	        $('tbody').html('');
+			updateTable(dataArray);
 		        
-		        $('form' ).each(function(){
-		            this.reset();
-		        });
+			//CLEAR FORM INPUTS
+		    $('form' ).each(function(){
+		    	this.reset();
+		    });
 			
 		} else {
-			alert(errors.join('\n'))
+			alert(errors.join('\n'));
 		}
 		
 	});
 	
 	
-	//SET DELETE BUTTON
-	$('.deleteButton').on('click', function() {	
-		confirm('Are you sure you want to delete this car?');
-		if(confirm) {
-			$(this).closest('tr').remove();
-		}
-	});
 	
-	$('.editButton').on('click', function() {	
+	//ADD TABLE EVENTS
+	$('#table').on('click', "button", function(e) {	
+		
+		//SET DELETE BUTTON
+		 if ($(event.target).hasClass("deleteButton")) {
+			 confirm('Are you sure you want to delete this car?');
+			 if(confirm == true) {
+				 var rowToDelete = $(event.target).parent().parent();
+				 
+				 rowToDelete.remove();
+				 $('tbody').html('');
+				 dataArray.splice(rowToDelete,1);
 
-	});
-	
-	
-	
-	//SET EDIT BUTTON
-	$('.editButton').on('click', function(e) {	
-	
-			var elements = e.target.parentElement.parentElement.children;
-			
-			$('form #brand').val(elements[1].innerText);
-			
-			$('form #model').val(elements[2].innerText);
-			
-			$('form #year').val(elements[3].innerText);
-			
-			$('form #kilometers').val(elements[4].innerText);
-			
-			$('#add').on('click', function() {	
-				elements[1].innerText = $('form #brand').val();
-				elements[2].innerText = $('form #model').val();
-				elements[3].innerText = $('form #year').val();
-				elements[4].innerText = $('form #kilometers').val();
-				e.target.parentElement.parentElement.remove();
-			});
+//????????????????????????????????????????????????????????????????????????????????
+//				 dataArray = jQuery.grep(dataArray, function(value) {
+//					  return value != rowToDelete;
+//					});
+//????????????????????????????????????????????????????????????????????????????????
+				 updateTable(dataArray);
+			 } 
+		 }
+		 
+		 //SET EDIT BUTTON
+		 if($(event.target).hasClass('editButton')) {
+			 var rowToEdit = $(event.target).parent().parent();
+			 var tdsToEdit = $(event.target).parent().parent().children();
+				$('form #brand').val(tdsToEdit[1].innerText);
+				$('form #model').val(tdsToEdit[2].innerText);
+				$('form #year').val(tdsToEdit[3].innerText);
+				$('form #kilometers').val(tdsToEdit[4].innerText);
+				
+				rowToEdit.remove();
+				$('tbody').html('');
+				dataArray.splice(rowToEdit,1);
+				updateTable(dataArray);
+				
+		 }
 	});
 	
 	
