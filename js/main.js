@@ -7,13 +7,13 @@ $(document).ready(function() {
 		
 		var carNumber = (dataArray.length) + 1;
 	
-		var brand = $('#brand');
+		var brand = $('#brand').val();
 		
-		var model = $('#model');
+		var model = $('#model').val();
 		
-		var year = $('#year');
+		var year = $('#year').val();
 		
-		var kilometers = $('#kilometers');
+		var kilometers = $('#kilometers').val();
 		
 		var deleteButton = $('<button>');
 			deleteButton.addClass('deleteButton');
@@ -39,7 +39,7 @@ $(document).ready(function() {
 		if (errors.length == 0) {
 			
 			//CREATE CAR OBJECT
-			var car = new Car(brand.val(), model.val(),parseFloat(year.val()),parseFloat(kilometers.val()));
+			var car = new Car(brand, model,parseFloat(year),parseFloat(kilometers));
 			
 			//PUSH CAR OBJECT TO DATA ARRAY
 			dataArray.push(car);
@@ -62,14 +62,13 @@ $(document).ready(function() {
 	
 	
 	//ADD TABLE EVENTS
-	$('#table').on('click', "button", function(e) {	
+	$('#table').on('click', function(e) {	
 		
 		//SET DELETE BUTTON
 		 if ($(event.target).hasClass("deleteButton")) {
-			 confirm('Are you sure you want to delete this car?');
-			 if(confirm == true) {
+			var confirmDelete = confirm('Are you sure you want to delete this car?');
+			 	if(confirmDelete == true) {
 				 var rowToDelete = $(event.target).parent().parent();
-				 
 				 rowToDelete.remove();
 				 $('tbody').html('');
 				 dataArray.splice(rowToDelete,1);
@@ -80,7 +79,7 @@ $(document).ready(function() {
 //					});
 //????????????????????????????????????????????????????????????????????????????????
 				 updateTable(dataArray);
-			 } 
+			 	}
 		 }
 		 
 		 //SET EDIT BUTTON

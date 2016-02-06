@@ -5,10 +5,9 @@ var errors = [];
 
 
 function notEmptyInput(param) {
-	var paramValue = param.val();
-	if (!paramValue){
-		errors.push($(param).attr('id') + ' field is required!');
-		param.css('border', '1px solid red');
+	if (!param){
+		errors.push('This field is required!');
+//		param.css('border', '1px solid red');
 		return false;
 	} else {
 		return true;
@@ -16,10 +15,9 @@ function notEmptyInput(param) {
 };
 
 function onlyNumbers(param) {
-	var paramValue = param.val();
-	if (!(paramValue.match(/^\d+$/))) {
-		errors.push($(param).attr('id') + ' should only contain numbers!');
-		param.css('border', '1px solid red');
+	if (!(param.match(/^\d+$/))) {
+		errors.push( 'Field should only contain numbers!');
+//		param.css('border', '1px solid red');
 		return false;
 	} else {
 		return true;
