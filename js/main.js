@@ -55,6 +55,8 @@ $(document).ready(function() {
 			
 		} else {
 			alert(errors.join('\n'));
+			errors = [];
+			return;
 		}
 		
 	});
