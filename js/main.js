@@ -39,7 +39,7 @@ $(document).ready(function() {
 		if (errors.length == 0) {
 			
 			//CREATE CAR OBJECT
-			var car = new Car(brand, model,parseFloat(year),parseFloat(kilometers));
+			var car = new Car(brand.val(), model.val(),parseFloat(year.val()),parseFloat(kilometers.val()));
 			
 			//PUSH CAR OBJECT TO DATA ARRAY
 			dataArray.push(car);
