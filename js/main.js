@@ -5,6 +5,8 @@ $(document).ready(function() {
 
 	$('#add').on('click', function() {	
 		
+		$('input').css('border', '1px groove #888888');
+		
 		var carNumber = (dataArray.length) + 1;
 	
 		var brand = $('#brand').val();
@@ -14,6 +16,14 @@ $(document).ready(function() {
 		var year = $('#year').val();
 		
 		var kilometers = $('#kilometers').val();
+		
+		var brandID = $('#brand');
+		
+		var modelID = $('#model');
+		
+		var yearID = $('#year');
+		
+		var kilometersID = $('#kilometers');
 		
 		var deleteButton = $('<button>');
 			deleteButton.addClass('deleteButton');
@@ -26,12 +36,12 @@ $(document).ready(function() {
 		var newTr = "";
 
 		//CALL ALL VALIDATING FUNCTIONS & CHECK INPUTS	
-		notEmptyInput(brand);
-		notEmptyInput(model);
-		notEmptyInput(year);
-		notEmptyInput(kilometers);
-		onlyNumbers(year);
-		onlyNumbers(kilometers);
+		notEmptyInput(brandID);
+		notEmptyInput(modelID);
+		notEmptyInput(yearID);
+		notEmptyInput(kilometersID);
+		onlyNumbers(yearID);
+		onlyNumbers(kilometersID);
 		
 		
 		
@@ -64,7 +74,7 @@ $(document).ready(function() {
 	
 	
 	//ADD TABLE EVENTS
-	$('#table').on('click', function(e) {	
+	$('#table').on('click', function(event) {	
 		
 		//SET DELETE BUTTON
 		 if ($(event.target).hasClass("deleteButton")) {
