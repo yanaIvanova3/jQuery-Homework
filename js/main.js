@@ -64,7 +64,7 @@ $(document).ready(function() {
 	
 	
 	//ADD TABLE EVENTS
-	$('#table').on('click', function(e) {	
+	$('#table').on('click', function(event) {	
 		
 		//SET DELETE BUTTON
 		 if ($(event.target).hasClass("deleteButton")) {
